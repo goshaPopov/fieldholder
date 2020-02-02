@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Field Holder</h1>
+<div>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Широта</th>
+            <th>Долгота</th>
+            <th>Название поля</th>
+            <th>Имя владельца</th>
+            <th>E-mail владельца</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="field : ${fields.content}">
+            <td th:text="${field.fieldId}"></td>
+            <td th:text="${field.lat}"></td>
+            <td th:text="${field.lon}"></td>
+            <td th:text="${field.fieldName}"></td>
+            <td th:text="${field.accountName}"></td>
+            <td th:text="${field.accountEmail}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <span th:if="${fields.totalPages > 0}"
+         th:each="pg : ${#numbers.sequence(1, fields.totalPages)}">
+            <a th:href="@{/index(size=${fields.size}, page=${pg-1})}"
+               th:text=${pg}
+               th:class="${pg==fields.pageable.pageNumber + 1} ? active"></a>
+    </span>
+</div>
+
+</body>
+
+</html>
